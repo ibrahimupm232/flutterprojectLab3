@@ -4,18 +4,15 @@ abstract class TextExpansionEvent {}
 
 class ToggleExpansion extends TextExpansionEvent {}
 
-abstract class TextExpansionState {}
-
-class TextExpansionInitial extends TextExpansionState {
+class TextExpansionState {
   final bool isExpanded;
-  TextExpansionInitial({this.isExpanded = false});
+  TextExpansionState(this.isExpanded);
 }
 
 class TextExpansionBlock extends Bloc<TextExpansionEvent, TextExpansionState> {
-  TextExpansionBlock() : super(TextExpansionInitial()) {
+  TextExpansionBlock() : super(TextExpansionState(false)) {
     on<ToggleExpansion>((event, emit) {
-      final currentState = state as TextExpansionInitial;
-      emit(TextExpansionInitial(isExpanded: !currentState.isExpanded));
+      emit(TextExpansionState(!state.isExpanded));
     });
   }
 }

@@ -36,7 +36,7 @@ class HotelDetailsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: imageUrl.isNotEmpty 
-                    ? AssetImage(imageUrl) // Changed from NetworkImage to AssetImage
+                    ? AssetImage(imageUrl)
                     : const AssetImage('assets/images/hotel_placeholder.jpg'),
                   fit: BoxFit.cover,
                 ),
@@ -65,16 +65,15 @@ class HotelDetailsScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   BlocBuilder<TextExpansionBlock, TextExpansionState>(
                     builder: (context, state) {
-                      final isExpanded = (state as TextExpansionInitial).isExpanded;
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text('Description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 8),
-                          Text(description, maxLines: isExpanded ? null : 3, overflow: isExpanded ? null : TextOverflow.ellipsis),
+                          Text(description, maxLines: state.isExpanded ? null : 3, overflow: state.isExpanded ? null : TextOverflow.ellipsis),
                           TextButton(
                             onPressed: () => context.read<TextExpansionBlock>().add(ToggleExpansion()),
-                            child: Text(isExpanded ? 'Show Less' : 'Show More'),
+                            child: Text(state.isExpanded ? 'Show Less' : 'Show More'),
                           ),
                         ],
                       );

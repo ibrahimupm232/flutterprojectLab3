@@ -9,7 +9,9 @@ class NavItemSelected extends BottomNavEvent {
 
 abstract class BottomNavState {}
 
-class BottomNavInitial extends BottomNavState {}
+class BottomNavInitial extends BottomNavState {
+  final int selectedIndex = 0;
+}
 
 class BottomNavSelected extends BottomNavState {
   final int selectedIndex;
