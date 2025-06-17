@@ -10,45 +10,44 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-final List<Map<String, dynamic>> flights = [
-  {
-    'from': 'NYC', 'fromCity': 'New York', 'to': 'LDN', 'toCity': 'London',
-    'date': '1 MAY', 'time': '08:00 AM', 'flightNo': 'BA 237',
-    'price': '\$400', 'duration': '7h 30m', 'airline': 'British Airways',
-    'image': 'assets/images/flight_nyc_london.jpeg', // changed to .jpeg
-  },
-  {
-    'from': 'DK', 'fromCity': 'Dhaka', 'to': 'SH', 'toCity': 'Shanghai',
-    'date': '10 MAY', 'time': '10:30 AM', 'flightNo': 'CA 982',
-    'price': '\$350', 'duration': '5h 45m', 'airline': 'China Airlines',
-    'image': 'assets/images/flight_dhaka_shanghai.jpeg', // changed to .jpeg
-  },
-  {
-    'from': 'TYO', 'fromCity': 'Tokyo', 'to': 'SEL', 'toCity': 'Seoul',
-    'date': '15 MAY', 'time': '02:15 PM', 'flightNo': 'JL 521',
-    'price': '\$280', 'duration': '2h 30m', 'airline': 'Japan Airlines',
-    'image': 'assets/images/flight_tokyo_seoul.jpeg', // changed to .jpeg
-  },
-];
+  final List<Map<String, dynamic>> flights = [
+    {
+      'from': 'NYC', 'fromCity': 'New York', 'to': 'LDN', 'toCity': 'London',
+      'date': '1 MAY', 'time': '08:00 AM', 'flightNo': 'BA 237',
+      'price': '\$400', 'duration': '7h 30m', 'airline': 'British Airways',
+      'image': 'assets/images/flight_nyc_london.jpeg',
+    },
+    {
+      'from': 'DK', 'fromCity': 'Dhaka', 'to': 'SH', 'toCity': 'Shanghai',
+      'date': '10 MAY', 'time': '10:30 AM', 'flightNo': 'CA 982',
+      'price': '\$350', 'duration': '5h 45m', 'airline': 'China Airlines',
+      'image': 'assets/images/flight_dhaka_shanghai.jpeg',
+    },
+    {
+      'from': 'TYO', 'fromCity': 'Tokyo', 'to': 'SEL', 'toCity': 'Seoul',
+      'date': '15 MAY', 'time': '02:15 PM', 'flightNo': 'JL 521',
+      'price': '\$280', 'duration': '2h 30m', 'airline': 'Japan Airlines',
+      'image': 'assets/images/flight_tokyo_seoul.jpeg',
+    },
+  ];
 
-final List<Map<String, dynamic>> hotels = [
-  {
-    'name': 'Grand Hyatt', 'location': 'New York', 'price': '\$220/night',
-    'rating': 4.8, 'amenities': ['Free WiFi', 'Pool', 'Spa'],
-    'image': 'assets/images/hotel1.jpeg', // assumed replacement
-  },
-  {
-    'name': 'The Ritz London', 'location': 'London', 'price': '\$350/night',
-    'rating': 4.9, 'amenities': ['Free WiFi', 'Restaurant', 'Spa'],
-    'image': 'assets/images/hotel2.jpeg', // assumed replacement
-  },
-  {
-    'name': 'Smile Hotel', 'location': 'Tokyo', 'price': '\$150/night',
-    'rating': 4.5, 'amenities': ['Free WiFi', 'Restaurant'],
-    'image': 'assets/images/hotel4.jpeg', // assumed replacement
-  },
-];
-
+  final List<Map<String, dynamic>> hotels = [
+    {
+      'name': 'Grand Hyatt', 'location': 'New York', 'price': '\$220/night',
+      'rating': 4.8, 'amenities': ['Free WiFi', 'Pool', 'Spa'],
+      'image': 'assets/images/hotel1.jpeg',
+    },
+    {
+      'name': 'The Ritz London', 'location': 'London', 'price': '\$350/night',
+      'rating': 4.9, 'amenities': ['Free WiFi', 'Restaurant', 'Spa'],
+      'image': 'assets/images/hotel2.jpeg',
+    },
+    {
+      'name': 'Smile Hotel', 'location': 'Tokyo', 'price': '\$150/night',
+      'rating': 4.5, 'amenities': ['Free WiFi', 'Restaurant'],
+      'image': 'assets/images/hotel4.jpeg',
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ final List<Map<String, dynamic>> hotels = [
               _buildSectionHeader('Upcoming Flights'),
               const SizedBox(height: 15),
               SizedBox(
-                height: 230,
+                height: 244, // Increased from 230 to 240 to prevent overflow
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
@@ -78,7 +77,7 @@ final List<Map<String, dynamic>> hotels = [
               _buildSectionHeader('Featured Hotels'),
               const SizedBox(height: 15),
               SizedBox(
-                height: 200,
+                height: 210, // Increased from 200 to 210 to prevent overflow
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
@@ -194,7 +193,7 @@ final List<Map<String, dynamic>> hotels = [
             child: ClipRRect(
               borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
               child: Image.asset(flight['image'], fit: BoxFit.cover,
-              width: double.infinity, // This ensures full width
+                width: double.infinity,
                 errorBuilder: (context, error, stackTrace) => _buildPlaceholderIcon(),
               ),
             ),
@@ -268,69 +267,63 @@ final List<Map<String, dynamic>> hotels = [
     );
   }
 
-Widget _buildHotelCard(Map<String, dynamic> hotel) {
-  return Container(
-    width: 160,
-    margin: const EdgeInsets.only(right: 12),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(16),
-      color: Colors.white,
-      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 10, offset: const Offset(0, 3))],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 92,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-            color: Colors.orange.shade100,
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-            child: Image.asset(
-              hotel['image'],
-              fit: BoxFit.cover,
-              width: double.infinity, // This ensures full width
-              errorBuilder: (context, error, stackTrace) {
-                return Center(
-                  child: Icon(Icons.hotel, size: 40, color: Colors.orange.shade400),
-                );
-              },
+  Widget _buildHotelCard(Map<String, dynamic> hotel) {
+    return Container(
+      width: 160,
+      margin: const EdgeInsets.only(right: 12),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 10, offset: const Offset(0, 3))],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 90, // Reduced from 92 to 90 to better fit in the container
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+              color: Colors.orange.shade100,
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+              child: Image.asset(
+                hotel['image'],
+                fit: BoxFit.cover,
+                width: double.infinity,
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                    child: Icon(Icons.hotel, size: 40, color: Colors.orange.shade400),
+                  );
+                },
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(hotel['name'], 
-                style: AppStyles.headline3.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
-                maxLines: 1, overflow: TextOverflow.ellipsis),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  Icon(Icons.star, color: Colors.amber, size: 14),
-                  const SizedBox(width: 4),
-                  Text(hotel['rating'].toString(), style: TextStyle(fontSize: 12)),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Text(hotel['location'], style: AppStyles.headline3.copyWith(color: Colors.grey.shade600, fontSize: 11)),
-              const SizedBox(height: 8),
-              Text(hotel['price'], style: AppStyles.headline3.copyWith(color: AppStyles.primaryColor, fontWeight: FontWeight.bold, fontSize: 13)),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(hotel['name'], 
+                  style: AppStyles.headline3.copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                  maxLines: 1, overflow: TextOverflow.ellipsis),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.amber, size: 14),
+                    const SizedBox(width: 4),
+                    Text(hotel['rating'].toString(), style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(hotel['location'], style: AppStyles.headline3.copyWith(color: Colors.grey.shade600, fontSize: 11)),
+                const SizedBox(height: 8),
+                Text(hotel['price'], style: AppStyles.headline3.copyWith(color: AppStyles.primaryColor, fontWeight: FontWeight.bold, fontSize: 13)),
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
-
-
-
-
-
+        ],
+      ),
+    );
+  }
 }

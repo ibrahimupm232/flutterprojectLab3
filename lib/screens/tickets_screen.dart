@@ -122,7 +122,7 @@ class TicketsScreen extends StatelessWidget {
         const SizedBox(height: 12),
         _buildInfoItem('passport', '5221 36869'),
         const SizedBox(height: 12),
-        _buildInfoItem('Number of E-ticket', '2465 658494046865'),
+        _buildInfoItem('Number of E-ticket', '2465 84946865'),
         const SizedBox(height: 12),
         _buildInfoItem('Booking code', 'B46859'),
       ],
